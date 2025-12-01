@@ -1,0 +1,17 @@
+{
+  "domain": "nova_by_openlaunch",
+  "name": "NOVA by Open Launch",
+  "codeowners": [],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/OpenLaunchLabs/homeassistant-nova",
+  "iot_class": "local_push",
+  "issue_tracker": "https://github.com/OpenLaunchLabs/homeassistant-nova/issues",
+  "requirements": ["websockets>=12.0"],
+  "ssdp": [
+    {
+      "st": "urn:openlaunch:service:websocket:1"
+    }
+  ],
+  "version": "1.0.0"
+}
