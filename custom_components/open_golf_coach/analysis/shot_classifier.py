@@ -17,6 +17,20 @@ DEFAULT_CURVATURE_MILD_THRESHOLD_DEG = 3.0
 DEFAULT_CURVATURE_SEVERE_THRESHOLD_DEG = 8.0
 
 
+def normalize_for_handedness(
+    horizontal_launch_angle_deg: float | None,
+    spin_axis_deg: float | None,
+    handedness: str,
+) -> tuple[float | None, float | None]:
+    """Normalize values to RH sign convention for classification."""
+    handedness = handedness.upper()
+    if handedness != "LH":
+        return horizontal_launch_angle_deg, spin_axis_deg
+    hla = -horizontal_launch_angle_deg if horizontal_launch_angle_deg is not None else None
+    axis = -spin_axis_deg if spin_axis_deg is not None else None
+    return hla, axis
+
+
 def classify_shot(
     horizontal_launch_angle_deg: float,
     spin_axis_deg: float,

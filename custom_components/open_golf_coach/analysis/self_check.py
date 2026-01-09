@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 
 from .analysis import analyze_shot
+from .shot_classifier import classify_shot, normalize_for_handedness
 from .benchmarks import load_benchmarks
 from .coaching import _load_tips
 
@@ -25,6 +26,23 @@ def run() -> None:
 
     output = analyze_shot(sample_shot, handedness="RH")
     print(json.dumps(output, indent=2))
+    _check_sign_conventions()
+
+
+def _check_sign_conventions() -> None:
+    cases = [
+        (2.0, 10.0, "RH", {"PushFade", "PushSlice"}),
+        (-2.0, -10.0, "RH", {"PullDraw", "PullHook"}),
+        (2.0, 10.0, "LH", {"PullDraw", "PullHook"}),
+        (-2.0, -10.0, "LH", {"PushFade", "PushSlice"}),
+    ]
+    for hla, axis, handedness, expected in cases:
+        norm_hla, norm_axis = normalize_for_handedness(hla, axis, handedness)
+        result = classify_shot(norm_hla or 0.0, norm_axis or 0.0).shape
+        if result not in expected:
+            raise RuntimeError(
+                f"Sign convention check failed for {handedness} {hla}/{axis}: {result}"
+            )
 
 
 if __name__ == "__main__":
