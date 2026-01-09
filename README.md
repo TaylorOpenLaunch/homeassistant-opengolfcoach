@@ -47,12 +47,14 @@ Trajectory outputs are provided under an `estimated_trajectory` attribute block 
 - `sensor.open_golf_coach_last_shot`: State is the classified shot shape (e.g., `Fade`). Attributes include measured, derived, inferred, benchmark, and coaching details.
 
 **Compatibility sensors (GolfCoachCards)**
-- `sensor.nova_shot_type`: Shot shape (derived).
-- `sensor.nova_shot_rank`: Severity label (derived).
-- `sensor.nova_nova_shot_quality`: Simple quality label using benchmark windows (derived).
-- `sensor.nova_launch_in_window`: Launch angle within PGA Tour p25–p75 window (derived).
-- `sensor.nova_spin_in_window`: Spin within PGA Tour p25–p75 window (derived).
-- `sensor.nova_start_line_in_window`: Start line within PGA Tour p25–p75 window (derived).
+| Sensor | Description |
+|--------|-------------|
+| `sensor.nova_shot_type` | Shot shape (derived). |
+| `sensor.nova_shot_rank` | Severity label (derived). |
+| `sensor.nova_nova_shot_quality` | Simple quality label using benchmark windows (derived). |
+| `sensor.nova_launch_in_window` | Launch angle within PGA Tour p25–p75 window (derived). |
+| `sensor.nova_spin_in_window` | Spin within PGA Tour p25–p75 window (derived). |
+| `sensor.nova_start_line_in_window` | Start line within PGA Tour p25–p75 window (derived). |
 
 ### Viewing analysis attributes
 - In Home Assistant, open the entity, then view **Attributes** to see the full analysis payload including coaching cues and benchmark comparisons.

@@ -72,7 +72,7 @@ COMPAT_SENSORS: tuple[OpenGolfCoachSensorEntityDescription, ...] = (
     ),
     OpenGolfCoachSensorEntityDescription(
         key="nova_nova_shot_quality",
-        name="NOVA Shot Quality",
+        name="NOVA Nova Shot Quality",
         value_fn=lambda analysis: analysis.get("derived", {}).get("shot_quality"),
     ),
     OpenGolfCoachSensorEntityDescription(
@@ -244,6 +244,7 @@ class OpenGolfCoachCompatSensor(OpenGolfCoachBaseSensor):
         self.entity_description = description
         self._attr_unique_id = f"{entry.entry_id}_{description.key}"
         self._attr_name = description.name
+        self._attr_has_entity_name = False
 
     @callback
     def _handle_coordinator_update(self) -> None:
@@ -258,4 +259,8 @@ class OpenGolfCoachCompatSensor(OpenGolfCoachBaseSensor):
 
     @property
     def extra_state_attributes(self) -> dict[str, Any]:
-        return {"data_source": "derived"}
+        return {
+            "data_source": "derived",
+            "source": "open_golf_coach",
+            "is_derived": True,
+        }
