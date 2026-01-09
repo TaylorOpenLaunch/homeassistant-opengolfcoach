@@ -1,161 +1,101 @@
-# NOVA by Open Launch - Home Assistant Integration
+# Home Assistant OpenGolfCoach (for NOVA)
 
-[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=OpenLaunchLabs&repository=homeassistant-nova&category=integration)
+This repository provides a Home Assistant integration that adds an Open Golf Coach analysis layer on top of the NOVA shot data stream. It is designed to be installed via HACS as a custom repository.
 
-A Home Assistant HACS integration for NOVA golf launch monitors by Open Launch. Connects to your device via WebSocket and exposes shot data as sensor entities. Supports automatic discovery via SSDP.
+This project is a fork of the NOVA Home Assistant integration for the device ingest layer, and it adds a separate Open Golf Coach integration for analysis and coaching.
 
-## Features
+## What you get
 
-- **Automatic Discovery**: Devices are automatically discovered via SSDP (UPnP)
-- **WebSocket Connection**: Real-time data streaming from your launch monitor
-- **Shot Data Sensors**: Ball speed, launch angles, spin rate, and more
-- **Status Sensors**: Device uptime, firmware version, shot count
-- **Auto-Reconnect**: Automatically reconnects if connection is lost
-- **HACS Compatible**: Easy installation via Home Assistant Community Store
+After installation, Home Assistant will show two integrations:
+- **NOVA by Open Launch** (device + raw shot ingest)
+- **Open Golf Coach** (analysis + benchmarking + coaching)
 
-## Sensors
+Open Golf Coach listens to the shot stream coming from NOVA and publishes a single rich sensor designed for dashboards and cards.
 
-### Shot Data (updated on each shot)
-| Sensor | Unit | Description |
-|--------|------|-------------|
-| Ball Speed | m/s | Ball velocity at launch (1 decimal) |
-| Vertical Launch Angle | ° | Launch angle (up/down, 1 decimal) |
-| Horizontal Launch Angle | ° | Launch angle (left/right, 1 decimal) |
-| Total Spin | rpm | Ball spin rate (whole number) |
-| Spin Axis | ° | Spin axis tilt (whole number) |
-| Shot Number | - | Current shot count |
-| Last Shot | - | Time since last shot |
+## Measured vs derived data (important)
 
-### Status Data (updated periodically)
-| Sensor | Unit | Description |
-|--------|------|-------------|
-| Uptime | s | Device uptime (whole seconds) |
+### Measured inputs (ground truth from NOVA)
+These are the only values treated as 100% correct:
+- Ball speed (meters per second)
+- Vertical launch angle (degrees)
+- Horizontal launch angle (degrees)
+- Total spin (rpm)
+- Spin axis (degrees)
 
-## Open Golf Coach Analysis
+### Derived and inferred outputs (computed)
+Open Golf Coach computes:
+- Inferred club category (wedges, mid irons, woods) using ball speed + vertical launch + spin
+- Shot shape classification using start line (horizontal launch) and curvature (spin axis)
+- Benchmark comparisons (PGA Tour, LPGA Tour, Amateur tiers)
+- Coaching: diagnostics and 2 to 3 coaching cues based on shot shape
+- Estimated trajectory outputs (if present): carry, total, offline, apex, hang time, descent angle
+  - These are explicitly labeled as estimated, not measured.
 
-This repository also includes the Open Golf Coach integration, which derives additional insights from NOVA shot data using a Python port of the OpenCoach Rust logic. All coaching is inferred from ball flight only; no club delivery metrics are directly measured.
+## Primary entity
 
-### Measured vs derived
-- **Measured**: Raw NOVA launch monitor metrics (ball speed, launch angles, spin).
-- **Derived**: Trajectory estimates, shot shape classification, benchmark comparisons, and coaching cues.
+### sensor.open_golf_coach_last_shot
+State:
+- The inferred shot shape
 
-Trajectory outputs are provided under an `estimated_trajectory` attribute block with `trajectory_is_estimated` set to `true`, indicating these values come from a simplified physics model and may differ from measured outcomes.
+Attributes include:
+- **measured**: ball_speed_mps, ball_speed_mph, vertical_launch_angle, horizontal_launch_angle, total_spin, spin_axis
+- **inferred**: club_category, shot_shape
+- **benchmarks**: cohort comparisons and percentile bands
+- **coaching**: diagnostics and coaching_cues
+- **estimated_trajectory**: trajectory outputs from a simplified model (if available)
+- **metadata**: timestamp and flags including trajectory_is_estimated and trajectory_model_note
 
-### Open Golf Coach sensors
+This single entity is the recommended source for dashboards and custom cards.
 
-**Rich analysis sensor**
-- `sensor.open_golf_coach_last_shot`: State is the classified shot shape (e.g., `Fade`). Attributes include measured, derived, inferred, benchmark, and coaching details.
+## Compatibility entities (optional)
+For compatibility with GolfCoachCards-style dashboards, Open Golf Coach also exposes derived sensors:
+- sensor.nova_shot_type
+- sensor.nova_shot_rank
+- sensor.nova_nova_shot_quality
+- sensor.nova_launch_in_window
+- sensor.nova_spin_in_window
+- sensor.nova_start_line_in_window
 
-**Compatibility sensors (GolfCoachCards)**
-| Sensor | Description |
-|--------|-------------|
-| `sensor.nova_shot_type` | Shot shape (derived). |
-| `sensor.nova_shot_rank` | Severity label (derived). |
-| `sensor.nova_nova_shot_quality` | Simple quality label using benchmark windows (derived). |
-| `sensor.nova_launch_in_window` | Launch angle within PGA Tour p25–p75 window (derived). |
-| `sensor.nova_spin_in_window` | Spin within PGA Tour p25–p75 window (derived). |
-| `sensor.nova_start_line_in_window` | Start line within PGA Tour p25–p75 window (derived). |
+These are derived from analysis output and include attributes:
+- source: open_golf_coach
+- is_derived: true
 
-### Viewing analysis attributes
-- In Home Assistant, open the entity, then view **Attributes** to see the full analysis payload including coaching cues and benchmark comparisons.
+## Installation via HACS (recommended)
 
-## Installation
+1) Open HACS in Home Assistant
+2) Go to **Integrations**
+3) Open the menu (top right) and select **Custom repositories**
+4) Add this repository URL:
+   https://github.com/TaylorOpenLaunch/homeassistant-opengolfcoach
+5) Select category: **Integration**
+6) Install
+7) Restart Home Assistant
 
-### HACS (Recommended)
+After restart:
+1) Go to **Settings -> Devices & services -> Add integration**
+2) Add **NOVA by Open Launch** first and confirm it is receiving shots
+3) Add **Open Golf Coach**
+4) When prompted, select the existing NOVA entry to bind to
 
-1. Open HACS in Home Assistant
-2. Click the three dots in the top right corner
-3. Select "Custom repositories"
-4. Add this repository URL and select "Integration" as the category
-5. Click "Add"
-6. Find "NOVA by Open Launch" in HACS and click "Download"
-7. Restart Home Assistant
+## Manual install (alternative)
+Copy both folders into your HA config:
+- custom_components/nova_by_openlaunch
+- custom_components/open_golf_coach
 
-### Manual Installation
+Restart Home Assistant and add both integrations.
 
-1. Copy the `custom_components/nova_by_openlaunch` folder to your Home Assistant `config/custom_components/` directory
-2. Restart Home Assistant
+## Data files
+This repo includes:
+- custom_components/open_golf_coach/data/benchmarks.json
+- custom_components/open_golf_coach/data/tips.json
 
-## Configuration
-
-### Automatic Discovery (Recommended)
-
-1. Ensure your NOVA device is powered on and connected to your network
-2. Home Assistant will automatically discover the device via SSDP
-3. Go to Settings → Devices & Services
-4. You should see a notification about the discovered device
-5. Click "Configure" and confirm the device name
-
-### Manual Configuration
-
-1. Go to Settings → Devices & Services
-2. Click "Add Integration"
-3. Search for "NOVA by Open Launch"
-4. Enter your device details:
-   - **Name**: A friendly name for your device
-   - **Host**: IP address of your launch monitor
-   - **Port**: WebSocket port (default: 2920)
-
-## Protocol
-
-This integration uses a custom WebSocket + SSDP protocol.
-
-### SSDP Discovery
-
-The device responds to SSDP M-SEARCH requests with:
-- **ST**: `urn:openlaunch:service:websocket:1`
-- **LOCATION**: WebSocket server URL (e.g., `http://192.168.1.100:2920/`)
-- **X-FRIENDLY-NAME**: Device display name
-- **X-MANUFACTURER**: "Open Launch"
-- **X-MODEL**: "NOVA"
-
-### WebSocket Messages
-
-**Shot Message** (sent when a shot is taken):
-```json
-{
-  "type": "shot",
-  "shot_number": 1,
-  "timestamp_ns": 1764477382748215552,
-  "ball_speed_meters_per_second": 34.37,
-  "vertical_launch_angle_degrees": 7.5,
-  "horizontal_launch_angle_degrees": -11.8,
-  "total_spin_rpm": 1684.2,
-  "spin_axis_degrees": -3.7
-}
-```
-
-**Status Message** (sent periodically):
-```json
-{
-  "type": "status",
-  "uptime_seconds": 3512,
-  "firmware_version": "0.1.0",
-  "shot_count": 5
-}
-```
+Benchmarks drive percentile comparisons by cohort.
+Tips drive diagnostics and coaching cues keyed by shot shape.
 
 ## Troubleshooting
-
-### Device not discovered
-- Ensure the device and Home Assistant are on the same network/subnet
-- Check that multicast traffic (SSDP) is not blocked by your router
-- Try manual configuration with the device's IP address
-
-### Connection issues
-- Verify the device is powered on and connected to the network
-- Check Home Assistant logs for connection errors
-- The integration will automatically retry every 10 seconds
-
-### Sensors show "unavailable"
-- This indicates the WebSocket connection is not active
-- Check that the device is reachable
-- Restart the integration from Settings → Devices & Services
+- If Open Golf Coach shows no updates, confirm NOVA is receiving shots first.
+- Check Home Assistant logs for JSON parsing errors of benchmarks.json or tips.json.
+- If shapes look mirrored, confirm handedness and sign convention normalization.
 
 ## License
-
-Apache License 2.0 - see [LICENSE](LICENSE) for details.
-
-## Credits
-
-Developed for Open Launch NOVA launch monitors.
+See LICENSE in this repository.
