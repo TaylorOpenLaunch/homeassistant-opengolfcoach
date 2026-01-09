@@ -31,6 +31,30 @@ A Home Assistant HACS integration for NOVA golf launch monitors by Open Launch. 
 |--------|------|-------------|
 | Uptime | s | Device uptime (whole seconds) |
 
+## Open Golf Coach Analysis
+
+This repository also includes the Open Golf Coach integration, which derives additional insights from NOVA shot data using a Python port of the OpenCoach Rust logic. All coaching is inferred from ball flight only; no club delivery metrics are directly measured.
+
+### Measured vs derived
+- **Measured**: Raw NOVA launch monitor metrics (ball speed, launch angles, spin).
+- **Derived**: Trajectory estimates, shot shape classification, benchmark comparisons, and coaching cues.
+
+### Open Golf Coach sensors
+
+**Rich analysis sensor**
+- `sensor.open_golf_coach_last_shot`: State is the classified shot shape (e.g., `Fade`). Attributes include measured, derived, inferred, benchmark, and coaching details.
+
+**Compatibility sensors (GolfCoachCards)**
+- `sensor.nova_shot_type`: Shot shape (derived).
+- `sensor.nova_shot_rank`: Severity label (derived).
+- `sensor.nova_nova_shot_quality`: Simple quality label using benchmark windows (derived).
+- `sensor.nova_launch_in_window`: Launch angle within PGA Tour p25–p75 window (derived).
+- `sensor.nova_spin_in_window`: Spin within PGA Tour p25–p75 window (derived).
+- `sensor.nova_start_line_in_window`: Start line within PGA Tour p25–p75 window (derived).
+
+### Viewing analysis attributes
+- In Home Assistant, open the entity, then view **Attributes** to see the full analysis payload including coaching cues and benchmark comparisons.
+
 ## Installation
 
 ### HACS (Recommended)
