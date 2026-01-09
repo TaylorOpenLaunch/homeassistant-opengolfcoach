@@ -13,7 +13,7 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .analysis import analyze_shot
 from .benchmarks import get_cohort_metric_window
-from .const import COHORT_PGA, DOMAIN
+from .const import COHORT_PGA, DOMAIN, NAME
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -164,9 +164,9 @@ class OpenGolfCoachBaseSensor(CoordinatorEntity, SensorEntity):
     def device_info(self) -> DeviceInfo:
         return DeviceInfo(
             identifiers={(DOMAIN, self._entry.entry_id)},
-            name="Open Golf Coach",
+            name=NAME,
             manufacturer="Open Launch",
-            model="Open Golf Coach",
+            model=NAME,
         )
 
     def _ensure_analysis(self) -> None:

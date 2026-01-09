@@ -6,7 +6,7 @@ import voluptuous as vol
 from homeassistant import config_entries
 from homeassistant.core import HomeAssistant
 
-from .const import CONF_NOVA_ENTRY_ID, DOMAIN
+from .const import CONF_NOVA_ENTRY_ID, DOMAIN, NAME
 
 NOVA_DOMAIN = "nova_by_openlaunch"
 
@@ -29,7 +29,7 @@ class OpenGolfCoachConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             await self.async_set_unique_id(nova_entry_id)
             self._abort_if_unique_id_configured()
             return self.async_create_entry(
-                title="Open Golf Coach",
+                title=NAME,
                 data={CONF_NOVA_ENTRY_ID: nova_entry_id},
             )
 
@@ -38,7 +38,7 @@ class OpenGolfCoachConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             await self.async_set_unique_id(nova_entry_id)
             self._abort_if_unique_id_configured()
             return self.async_create_entry(
-                title="Open Golf Coach",
+                title=NAME,
                 data={CONF_NOVA_ENTRY_ID: nova_entry_id},
             )
 

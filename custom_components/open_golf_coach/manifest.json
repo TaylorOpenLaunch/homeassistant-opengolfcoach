@@ -1,9 +1,11 @@
 {
   "domain": "open_golf_coach",
   "name": "Open Golf Coach",
-  "version": "0.1.0",
+  "config_flow": true,
   "documentation": "https://github.com/TaylorOpenLaunch/homeassistant-opengolfcoach",
+  "issue_tracker": "https://github.com/TaylorOpenLaunch/homeassistant-opengolfcoach/issues",
+  "iot_class": "local_push",
   "dependencies": ["nova_by_openlaunch"],
-  "codeowners": [],
-  "config_flow": true
+  "requirements": [],
+  "version": "0.1.0"
 }
