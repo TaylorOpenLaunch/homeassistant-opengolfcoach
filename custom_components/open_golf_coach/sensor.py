@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import logging
-from typing import Any
+from typing import Any, Callable
 
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.config_entries import ConfigEntry
@@ -12,7 +12,8 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .analysis import analyze_shot
-from .const import DOMAIN
+from .benchmarks import get_cohort_metric_window
+from .const import COHORT_PGA, DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -26,7 +27,10 @@ async def async_setup_entry(
     state = hass.data[DOMAIN][entry.entry_id]
     coordinator = state["coordinator"]
 
-    entities: list[SensorEntity] = [OpenGolfCoachLastShotSensor(coordinator, entry, state)]
+    entities: list[SensorEntity] = [
+        OpenGolfCoachLastShotSensor(coordinator, entry, state),
+        *[OpenGolfCoachCompatSensor(coordinator, entry, state, description) for description in COMPAT_SENSORS],
+    ]
 
     async_add_entities(entities)
 
@@ -41,8 +45,109 @@ def _shot_id(shot: dict[str, Any]) -> str | int | None:
     return None
 
 
+class OpenGolfCoachSensorEntityDescription:
+    """Describes an Open Golf Coach sensor entity."""
+
+    def __init__(
+        self,
+        key: str,
+        name: str,
+        value_fn: Callable[[dict[str, Any]], Any],
+    ) -> None:
+        self.key = key
+        self.name = name
+        self.value_fn = value_fn
+
+
+COMPAT_SENSORS: tuple[OpenGolfCoachSensorEntityDescription, ...] = (
+    OpenGolfCoachSensorEntityDescription(
+        key="nova_shot_type",
+        name="NOVA Shot Type",
+        value_fn=lambda analysis: analysis.get("inferred", {}).get("shot_shape"),
+    ),
+    OpenGolfCoachSensorEntityDescription(
+        key="nova_shot_rank",
+        name="NOVA Shot Rank",
+        value_fn=lambda analysis: analysis.get("inferred", {}).get("severity"),
+    ),
+    OpenGolfCoachSensorEntityDescription(
+        key="nova_nova_shot_quality",
+        name="NOVA Shot Quality",
+        value_fn=lambda analysis: analysis.get("derived", {}).get("shot_quality"),
+    ),
+    OpenGolfCoachSensorEntityDescription(
+        key="nova_launch_in_window",
+        name="NOVA Launch In Window",
+        value_fn=lambda analysis: analysis.get("derived", {}).get("launch_in_window"),
+    ),
+    OpenGolfCoachSensorEntityDescription(
+        key="nova_spin_in_window",
+        name="NOVA Spin In Window",
+        value_fn=lambda analysis: analysis.get("derived", {}).get("spin_in_window"),
+    ),
+    OpenGolfCoachSensorEntityDescription(
+        key="nova_start_line_in_window",
+        name="NOVA Start Line In Window",
+        value_fn=lambda analysis: analysis.get("derived", {}).get("start_line_in_window"),
+    ),
+)
+
+
+def _compute_shot_quality(analysis: dict[str, Any]) -> str | None:
+    measured = analysis.get("measured", {})
+    club_category = analysis.get("inferred", {}).get("club_category")
+
+    in_window = 0
+    total = 0
+    for metric, shot_key in (
+        ("ball_speed", "ball_speed_mps"),
+        ("vertical_launch_angle", "vertical_launch_angle_deg"),
+        ("total_spin", "spin_rpm"),
+    ):
+        value = measured.get(shot_key)
+        if value is None:
+            continue
+        p25, p75 = get_cohort_metric_window(club_category, COHORT_PGA, metric)
+        if p25 is None or p75 is None:
+            continue
+        total += 1
+        if p25 <= value <= p75:
+            in_window += 1
+
+    if total == 0:
+        return None
+    if in_window == total:
+        return "Great"
+    if in_window >= max(1, total - 1):
+        return "OK"
+    return "Needs Work"
+
+
+def _window_flag(analysis: dict[str, Any], metric: str, shot_key: str) -> bool | None:
+    measured = analysis.get("measured", {})
+    club_category = analysis.get("inferred", {}).get("club_category")
+    value = measured.get(shot_key)
+    if value is None:
+        return None
+    p25, p75 = get_cohort_metric_window(club_category, COHORT_PGA, metric)
+    if p25 is None or p75 is None:
+        return None
+    return p25 <= value <= p75
+
+
 def _decorate_analysis(analysis: dict[str, Any]) -> dict[str, Any]:
-    return analysis or {}
+    if not analysis:
+        return {}
+    derived = analysis.setdefault("derived", {})
+    derived["shot_quality"] = _compute_shot_quality(analysis)
+    derived["launch_in_window"] = _window_flag(
+        analysis, "vertical_launch_angle", "vertical_launch_angle_deg"
+    )
+    derived["spin_in_window"] = _window_flag(analysis, "total_spin", "spin_rpm")
+    derived["start_line_in_window"] = _window_flag(
+        analysis, "horizontal_launch_angle", "horizontal_launch_angle_deg"
+    )
+    return analysis
 
 
 class OpenGolfCoachBaseSensor(CoordinatorEntity, SensorEntity):
@@ -122,3 +227,35 @@ class OpenGolfCoachLastShotSensor(OpenGolfCoachBaseSensor):
             },
         }
 
+
+class OpenGolfCoachCompatSensor(OpenGolfCoachBaseSensor):
+    """Compatibility sensor for existing cards."""
+
+    entity_description: OpenGolfCoachSensorEntityDescription
+
+    def __init__(
+        self,
+        coordinator,
+        entry: ConfigEntry,
+        state: dict[str, Any],
+        description: OpenGolfCoachSensorEntityDescription,
+    ) -> None:
+        super().__init__(coordinator, entry, state)
+        self.entity_description = description
+        self._attr_unique_id = f"{entry.entry_id}_{description.key}"
+        self._attr_name = description.name
+
+    @callback
+    def _handle_coordinator_update(self) -> None:
+        self._ensure_analysis()
+        analysis = self._state_store.get("analysis")
+        if analysis:
+            self._set_native_from_analysis(analysis)
+            self.async_write_ha_state()
+
+    def _set_native_from_analysis(self, analysis: dict[str, Any]) -> None:
+        self._attr_native_value = self.entity_description.value_fn(analysis)
+
+    @property
+    def extra_state_attributes(self) -> dict[str, Any]:
+        return {"data_source": "derived"}
