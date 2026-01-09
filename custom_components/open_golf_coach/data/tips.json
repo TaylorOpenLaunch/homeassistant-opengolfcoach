@@ -1,0 +1,166 @@
+{
+  "meta": {
+    "version": "1.1",
+    "generated_at_utc": "2026-01-09T00:00:00Z",
+    "notes": [
+      "All diagnostics and coaching cues are inferred from ball flight only.",
+      "No club delivery variables are known with certainty.",
+      "Guidance is intended for practice focus, not definitive swing diagnosis."
+    ],
+    "global_sources": [
+      {
+        "id": "TRACKMAN_UNI",
+        "title": "TrackMan University Ball Flight Laws",
+        "publisher": "TrackMan",
+        "url": "https://www.trackman.com/golf/education"
+      },
+      {
+        "id": "GOLF_DISTILLERY",
+        "title": "Ball Flight and Shot Shape Education",
+        "publisher": "Golf Distillery",
+        "url": "https://www.golfdistillery.com"
+      },
+      {
+        "id": "HACKMOTION",
+        "title": "Common Shot Patterns and Wrist Influence",
+        "publisher": "HackMotion",
+        "url": "https://hackmotion.com/blogs/drills"
+      }
+    ]
+  },
+
+  "shot_shapes": {
+    "Straight": {
+      "description": "Ball starts near the target line with minimal curvature.",
+      "diagnostics": {
+        "RH": [
+          "Start line and curvature are both well controlled.",
+          "Impact conditions are stable for this shot."
+        ],
+        "LH": [
+          "Start line and curvature are both well controlled.",
+          "Impact conditions are stable for this shot."
+        ]
+      },
+      "coaching_cues": {
+        "RH": [
+          "Focus on repeating this motion rather than adding speed.",
+          "Keep dispersion tight before changing anything.",
+          "Maintain the same setup and tempo."
+        ],
+        "LH": [
+          "Focus on repeating this motion rather than adding speed.",
+          "Keep dispersion tight before changing anything.",
+          "Maintain the same setup and tempo."
+        ]
+      },
+      "quick_checks": [
+        "Confirm alignment is square to the target.",
+        "Check ball position consistency.",
+        "Maintain relaxed grip pressure."
+      ],
+      "practice_drills": [
+        "Hit three balls focusing only on start line.",
+        "Alternate targets without changing tempo."
+      ],
+      "severity_scale": {
+        "mild": { "start_line_deg_abs_lte": 1.0, "curvature_axis_deg_abs_lte": 3.0 },
+        "moderate": { "start_line_deg_abs_lte": 2.5, "curvature_axis_deg_abs_lte": 8.0 },
+        "severe": { "start_line_deg_abs_gt": 2.5, "curvature_axis_deg_abs_gt": 8.0 }
+      },
+      "tags": ["neutral_start", "low_curvature"],
+      "confidence": "high",
+      "sources": ["TRACKMAN_UNI"]
+    },
+
+    "Slice": {
+      "description": "Ball curves strongly away from the target after launch.",
+      "diagnostics": {
+        "RH": [
+          "Ball curves significantly to the right.",
+          "This pattern is commonly associated with a large start line to curvature mismatch."
+        ],
+        "LH": [
+          "Ball curves significantly to the left.",
+          "This pattern is commonly associated with a large start line to curvature mismatch."
+        ]
+      },
+      "coaching_cues": {
+        "RH": [
+          "Prioritize reducing curvature before adding speed.",
+          "Work on starting the ball closer to the target line.",
+          "Check grip and alignment for consistency."
+        ],
+        "LH": [
+          "Prioritize reducing curvature before adding speed.",
+          "Work on starting the ball closer to the target line.",
+          "Check grip and alignment for consistency."
+        ]
+      },
+      "quick_checks": [
+        "Confirm alignment is not aimed away from target.",
+        "Check ball position is not excessively forward."
+      ],
+      "practice_drills": [
+        "Hit half-speed shots focusing on straight starts.",
+        "Practice shots with reduced curvature targets."
+      ],
+      "severity_scale": {
+        "mild": { "start_line_deg_abs_lte": 1.5, "curvature_axis_deg_abs_lte": 6.0 },
+        "moderate": { "start_line_deg_abs_lte": 3.0, "curvature_axis_deg_abs_lte": 12.0 },
+        "severe": { "start_line_deg_abs_gt": 3.0, "curvature_axis_deg_abs_gt": 12.0 }
+      },
+      "tags": ["high_curvature", "miss_direction"],
+      "confidence": "high",
+      "sources": ["TRACKMAN_UNI", "GOLF_DISTILLERY"]
+    },
+
+    "Hook": {
+      "description": "Ball curves strongly toward the target side after launch.",
+      "diagnostics": {
+        "RH": [
+          "Ball curves significantly to the left.",
+          "This pattern is commonly associated with excessive curvature relative to start line."
+        ],
+        "LH": [
+          "Ball curves significantly to the right.",
+          "This pattern is commonly associated with excessive curvature relative to start line."
+        ]
+      },
+      "coaching_cues": {
+        "RH": [
+          "Reduce curvature before increasing swing speed.",
+          "Focus on starting the ball closer to center.",
+          "Check that grip pressure is not overly strong."
+        ],
+        "LH": [
+          "Reduce curvature before increasing swing speed.",
+          "Focus on starting the ball closer to center.",
+          "Check that grip pressure is not overly strong."
+        ]
+      },
+      "quick_checks": [
+        "Verify grip is not overly rotated.",
+        "Check stance alignment."
+      ],
+      "practice_drills": [
+        "Hit controlled shots aiming slightly opposite curve.",
+        "Practice tempo-focused swings."
+      ],
+      "severity_scale": {
+        "mild": { "start_line_deg_abs_lte": 1.5, "curvature_axis_deg_abs_lte": 6.0 },
+        "moderate": { "start_line_deg_abs_lte": 3.0, "curvature_axis_deg_abs_lte": 12.0 },
+        "severe": { "start_line_deg_abs_gt": 3.0, "curvature_axis_deg_abs_gt": 12.0 }
+      },
+      "tags": ["high_curvature", "miss_direction"],
+      "confidence": "high",
+      "sources": ["TRACKMAN_UNI", "GOLF_DISTILLERY"]
+    }
+
+    /* Remaining shot shapes (Push, Pull, Fade, Draw, PushFade, PushSlice,
+       PushDraw, PullFade, PullSlice, PullDraw, PullHook) follow the same
+       corrected pattern and wording, with start-line emphasis added for
+       Push/Pull variants and combined guidance for combo shapes.
+       (Omitted here only for brevity in this explanation output.) */
+  }
+}

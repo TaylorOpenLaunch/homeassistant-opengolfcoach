@@ -1,0 +1,946 @@
+{
+"meta": {
+"version": "1.0",
+"generated_at_utc": "2026-01-09T00:00:00Z",
+"units": {
+"ball_speed": "m/s",
+"angles": "deg",
+"spin": "rpm"
+},
+"environment_assumptions": {
+"sea_level": true,
+"temperature_c": 20,
+"wind": "calm",
+"ball": "premium tour ball",
+"notes": "Benchmark values assume normalized conditions at sea level, calm wind and standard temperature; differences in altitude or wind can affect launch conditions."
+},
+"confirmed_metrics": [
+"ball_speed",
+"vertical_launch_angle",
+"horizontal_launch_angle",
+"total_spin",
+"spin_axis"
+],
+"club_categories": [
+{
+"id": "wedges",
+"clubs": [
+"PW",
+"GW",
+"SW",
+"LW"
+]
+},
+{
+"id": "mid_irons",
+"clubs": [
+"6i",
+"7i",
+"8i"
+]
+},
+{
+"id": "woods",
+"clubs": [
+"3W",
+"5W",
+"Driver"
+]
+}
+],
+"cohorts": [
+{
+"id": "pga_tour",
+"label": "PGA Tour"
+},
+{
+"id": "lpga_tour",
+"label": "LPGA Tour"
+},
+{
+"id": "amateur",
+"label": "Amateur",
+"tiers": [
+{
+"id": "scratch_0_5",
+"handicap_range": [
+0,
+5
+]
+},
+{
+"id": "mid_6_15",
+"handicap_range": [
+6,
+15
+]
+},
+{
+"id": "high_16_30",
+"handicap_range": [
+16,
+30
+]
+}
+]
+}
+]
+},
+"benchmarks": {
+"wedges": {
+"pga_tour": {
+"ball_speed": {
+"p10": 42.5,
+"p25": 43.8,
+"p50": 45.6,
+"p75": 46.9,
+"p90": 48.3
+},
+"vertical_launch_angle": {
+"p10": 20.0,
+"p25": 22.0,
+"p50": 24.0,
+"p75": 26.0,
+"p90": 28.0
+},
+"horizontal_launch_angle": {
+"p10": -1.0,
+"p25": -0.5,
+"p50": 0.0,
+"p75": 0.5,
+"p90": 1.0
+},
+"total_spin": {
+"p10": 8200,
+"p25": 8700,
+"p50": 9300,
+"p75": 9900,
+"p90": 10500
+},
+"spin_axis": {
+"p10": -2.0,
+"p25": -1.0,
+"p50": 0.0,
+"p75": 1.0,
+"p90": 2.0
+},
+"confidence": "high",
+"source_refs": [
+"SRC_TRACKMAN_TOUR_2024",
+"SRC_TRACKMAN_SPIN_AXIS",
+"SRC_TRACKMAN_LAUNCH_DIRECTION"
+]
+},
+"lpga_tour": {
+"ball_speed": {
+"p10": 37.1,
+"p25": 38.4,
+"p50": 39.3,
+"p75": 40.2,
+"p90": 41.6
+},
+"vertical_launch_angle": {
+"p10": 22.0,
+"p25": 24.0,
+"p50": 25.0,
+"p75": 27.0,
+"p90": 29.0
+},
+"horizontal_launch_angle": {
+"p10": -1.0,
+"p25": -0.5,
+"p50": 0.0,
+"p75": 0.5,
+"p90": 1.0
+},
+"total_spin": {
+"p10": 7500,
+"p25": 8000,
+"p50": 8500,
+"p75": 9000,
+"p90": 9500
+},
+"spin_axis": {
+"p10": -2.0,
+"p25": -1.0,
+"p50": 0.0,
+"p75": 1.0,
+"p90": 2.0
+},
+"confidence": "high",
+"source_refs": [
+"SRC_TRACKMAN_TOUR_2024",
+"SRC_TRACKMAN_SPIN_AXIS",
+"SRC_TRACKMAN_LAUNCH_DIRECTION"
+]
+},
+"amateur": {
+"scratch_0_5": {
+"ball_speed": {
+"p10": 35.5,
+"p25": 37.7,
+"p50": 40.0,
+"p75": 42.2,
+"p90": 44.4
+},
+"vertical_launch_angle": {
+"p10": 20.0,
+"p25": 22.0,
+"p50": 24.0,
+"p75": 26.0,
+"p90": 28.0
+},
+"horizontal_launch_angle": {
+"p10": -2.0,
+"p25": -1.0,
+"p50": 0.0,
+"p75": 1.0,
+"p90": 2.0
+},
+"total_spin": {
+"p10": 8000,
+"p25": 8500,
+"p50": 9000,
+"p75": 9700,
+"p90": 10500
+},
+"spin_axis": {
+"p10": -3.0,
+"p25": -1.5,
+"p50": 0.0,
+"p75": 1.5,
+"p90": 3.0
+},
+"confidence": "medium",
+"source_refs": [
+"SRC_CLEVELAND_TRACKMAN_GUIDE",
+"SRC_FORESIGHT_BALL_SPEED",
+"SRC_TRACKMAN_SPIN_AXIS",
+"SRC_TRACKMAN_LAUNCH_DIRECTION"
+]
+},
+"mid_6_15": {
+"ball_speed": {
+"p10": 31.7,
+"p25": 33.9,
+"p50": 36.1,
+"p75": 38.4,
+"p90": 40.6
+},
+"vertical_launch_angle": {
+"p10": 20.0,
+"p25": 22.0,
+"p50": 24.0,
+"p75": 26.0,
+"p90": 28.0
+},
+"horizontal_launch_angle": {
+"p10": -3.0,
+"p25": -1.5,
+"p50": 0.0,
+"p75": 1.5,
+"p90": 3.0
+},
+"total_spin": {
+"p10": 7500,
+"p25": 8000,
+"p50": 8500,
+"p75": 9000,
+"p90": 9500
+},
+"spin_axis": {
+"p10": -5.0,
+"p25": -2.0,
+"p50": 0.0,
+"p75": 2.0,
+"p90": 5.0
+},
+"confidence": "medium",
+"source_refs": [
+"SRC_CLEVELAND_TRACKMAN_GUIDE",
+"SRC_FORESIGHT_BALL_SPEED",
+"SRC_TRACKMAN_SPIN_AXIS",
+"SRC_TRACKMAN_LAUNCH_DIRECTION"
+]
+},
+"high_16_30": {
+"ball_speed": {
+"p10": 25.7,
+"p25": 27.9,
+"p50": 30.2,
+"p75": 32.4,
+"p90": 34.6
+},
+"vertical_launch_angle": {
+"p10": 20.0,
+"p25": 22.0,
+"p50": 24.0,
+"p75": 27.0,
+"p90": 29.0
+},
+"horizontal_launch_angle": {
+"p10": -4.0,
+"p25": -2.0,
+"p50": 0.0,
+"p75": 2.0,
+"p90": 4.0
+},
+"total_spin": {
+"p10": 7000,
+"p25": 7500,
+"p50": 8000,
+"p75": 8500,
+"p90": 9000
+},
+"spin_axis": {
+"p10": -7.0,
+"p25": -3.5,
+"p50": 0.0,
+"p75": 3.5,
+"p90": 7.0
+},
+"confidence": "medium",
+"source_refs": [
+"SRC_CLEVELAND_TRACKMAN_GUIDE",
+"SRC_FORESIGHT_BALL_SPEED",
+"SRC_TRACKMAN_SPIN_AXIS",
+"SRC_TRACKMAN_LAUNCH_DIRECTION"
+]
+}
+}
+},
+"mid_irons": {
+"pga_tour": {
+"ball_speed": {
+"p10": 51.4,
+"p25": 52.8,
+"p50": 54.1,
+"p75": 55.4,
+"p90": 56.8
+},
+"vertical_launch_angle": {
+"p10": 14.0,
+"p25": 15.0,
+"p50": 16.0,
+"p75": 17.0,
+"p90": 18.0
+},
+"horizontal_launch_angle": {
+"p10": -1.0,
+"p25": -0.5,
+"p50": 0.0,
+"p75": 0.5,
+"p90": 1.0
+},
+"total_spin": {
+"p10": 6200,
+"p25": 6700,
+"p50": 7100,
+"p75": 7500,
+"p90": 8000
+},
+"spin_axis": {
+"p10": -2.0,
+"p25": -1.0,
+"p50": 0.0,
+"p75": 1.0,
+"p90": 2.0
+},
+"confidence": "high",
+"source_refs": [
+"SRC_TRACKMAN_TOUR_2024",
+"SRC_TRACKMAN_SPIN_AXIS",
+"SRC_TRACKMAN_LAUNCH_DIRECTION"
+]
+},
+"lpga_tour": {
+"ball_speed": {
+"p10": 44.7,
+"p25": 46.0,
+"p50": 47.4,
+"p75": 48.7,
+"p90": 50.1
+},
+"vertical_launch_angle": {
+"p10": 15.0,
+"p25": 16.5,
+"p50": 18.0,
+"p75": 19.5,
+"p90": 21.0
+},
+"horizontal_launch_angle": {
+"p10": -1.0,
+"p25": -0.5,
+"p50": 0.0,
+"p75": 0.5,
+"p90": 1.0
+},
+"total_spin": {
+"p10": 5700,
+"p25": 6200,
+"p50": 6600,
+"p75": 7100,
+"p90": 7600
+},
+"spin_axis": {
+"p10": -2.0,
+"p25": -1.0,
+"p50": 0.0,
+"p75": 1.0,
+"p90": 2.0
+},
+"confidence": "high",
+"source_refs": [
+"SRC_TRACKMAN_TOUR_2024",
+"SRC_TRACKMAN_SPIN_AXIS",
+"SRC_TRACKMAN_LAUNCH_DIRECTION"
+]
+},
+"amateur": {
+"scratch_0_5": {
+"ball_speed": {
+"p10": 43.0,
+"p25": 45.3,
+"p50": 47.5,
+"p75": 49.7,
+"p90": 52.0
+},
+"vertical_launch_angle": {
+"p10": 14.0,
+"p25": 15.0,
+"p50": 16.5,
+"p75": 17.5,
+"p90": 18.5
+},
+"horizontal_launch_angle": {
+"p10": -2.0,
+"p25": -1.0,
+"p50": 0.0,
+"p75": 1.0,
+"p90": 2.0
+},
+"total_spin": {
+"p10": 6300,
+"p25": 6600,
+"p50": 7000,
+"p75": 7400,
+"p90": 7800
+},
+"spin_axis": {
+"p10": -3.0,
+"p25": -1.5,
+"p50": 0.0,
+"p75": 1.5,
+"p90": 3.0
+},
+"confidence": "medium",
+"source_refs": [
+"SRC_CLEVELAND_TRACKMAN_GUIDE",
+"SRC_FORESIGHT_BALL_SPEED",
+"SRC_TRACKMAN_SPIN_AXIS",
+"SRC_TRACKMAN_LAUNCH_DIRECTION"
+]
+},
+"mid_6_15": {
+"ball_speed": {
+"p10": 38.5,
+"p25": 40.8,
+"p50": 43.0,
+"p75": 45.2,
+"p90": 47.5
+},
+"vertical_launch_angle": {
+"p10": 15.0,
+"p25": 16.0,
+"p50": 17.5,
+"p75": 18.5,
+"p90": 20.0
+},
+"horizontal_launch_angle": {
+"p10": -3.0,
+"p25": -1.5,
+"p50": 0.0,
+"p75": 1.5,
+"p90": 3.0
+},
+"total_spin": {
+"p10": 6000,
+"p25": 6400,
+"p50": 6800,
+"p75": 7200,
+"p90": 7600
+},
+"spin_axis": {
+"p10": -5.0,
+"p25": -2.0,
+"p50": 0.0,
+"p75": 2.0,
+"p90": 5.0
+},
+"confidence": "medium",
+"source_refs": [
+"SRC_CLEVELAND_TRACKMAN_GUIDE",
+"SRC_FORESIGHT_BALL_SPEED",
+"SRC_TRACKMAN_SPIN_AXIS",
+"SRC_TRACKMAN_LAUNCH_DIRECTION"
+]
+},
+"high_16_30": {
+"ball_speed": {
+"p10": 31.4,
+"p25": 33.6,
+"p50": 35.9,
+"p75": 38.1,
+"p90": 40.3
+},
+"vertical_launch_angle": {
+"p10": 16.0,
+"p25": 17.5,
+"p50": 19.5,
+"p75": 21.0,
+"p90": 22.5
+},
+"horizontal_launch_angle": {
+"p10": -4.0,
+"p25": -2.0,
+"p50": 0.0,
+"p75": 2.0,
+"p90": 4.0
+},
+"total_spin": {
+"p10": 5500,
+"p25": 6000,
+"p50": 6500,
+"p75": 7000,
+"p90": 7500
+},
+"spin_axis": {
+"p10": -7.0,
+"p25": -3.5,
+"p50": 0.0,
+"p75": 3.5,
+"p90": 7.0
+},
+"confidence": "medium",
+"source_refs": [
+"SRC_CLEVELAND_TRACKMAN_GUIDE",
+"SRC_FORESIGHT_BALL_SPEED",
+"SRC_TRACKMAN_SPIN_AXIS",
+"SRC_TRACKMAN_LAUNCH_DIRECTION"
+]
+}
+}
+},
+"woods": {
+"pga_tour": {
+"ball_speed": {
+"p10": 68.8,
+"p25": 69.7,
+"p50": 71.1,
+"p75": 72.4,
+"p90": 73.8
+},
+"vertical_launch_angle": {
+"p10": 8.0,
+"p25": 9.0,
+"p50": 10.0,
+"p75": 11.0,
+"p90": 12.0
+},
+"horizontal_launch_angle": {
+"p10": -1.0,
+"p25": -0.5,
+"p50": 0.0,
+"p75": 0.5,
+"p90": 1.0
+},
+"total_spin": {
+"p10": 2000,
+"p25": 2500,
+"p50": 3564,
+"p75": 4000,
+"p90": 4500
+},
+"spin_axis": {
+"p10": -2.0,
+"p25": -1.0,
+"p50": 0.0,
+"p75": 1.0,
+"p90": 2.0
+},
+"confidence": "high",
+"source_refs": [
+"SRC_TRACKMAN_TOUR_2024",
+"SRC_TRACKMAN_SPIN_AXIS",
+"SRC_TRACKMAN_LAUNCH_DIRECTION"
+]
+},
+"lpga_tour": {
+"ball_speed": {
+"p10": 62.1,
+"p25": 62.6,
+"p50": 63.9,
+"p75": 64.8,
+"p90": 65.7
+},
+"vertical_launch_angle": {
+"p10": 10.0,
+"p25": 11.0,
+"p50": 12.0,
+"p75": 13.0,
+"p90": 14.0
+},
+"horizontal_launch_angle": {
+"p10": -1.0,
+"p25": -0.5,
+"p50": 0.0,
+"p75": 0.5,
+"p90": 1.0
+},
+"total_spin": {
+"p10": 2300,
+"p25": 2600,
+"p50": 3000,
+"p75": 3400,
+"p90": 3800
+},
+"spin_axis": {
+"p10": -2.0,
+"p25": -1.0,
+"p50": 0.0,
+"p75": 1.0,
+"p90": 2.0
+},
+"confidence": "high",
+"source_refs": [
+"SRC_TRACKMAN_TOUR_2024",
+"SRC_TRACKMAN_SPIN_AXIS",
+"SRC_TRACKMAN_LAUNCH_DIRECTION"
+]
+},
+"amateur": {
+"scratch_0_5": {
+"ball_speed": {
+"p10": 61.2,
+"p25": 63.5,
+"p50": 65.7,
+"p75": 68.0,
+"p90": 70.2
+},
+"vertical_launch_angle": {
+"p10": 11.0,
+"p25": 12.0,
+"p50": 14.0,
+"p75": 15.0,
+"p90": 16.0
+},
+"horizontal_launch_angle": {
+"p10": -2.0,
+"p25": -1.0,
+"p50": 0.0,
+"p75": 1.0,
+"p90": 2.0
+},
+"total_spin": {
+"p10": 2000,
+"p25": 2300,
+"p50": 2600,
+"p75": 2800,
+"p90": 3000
+},
+"spin_axis": {
+"p10": -3.0,
+"p25": -1.5,
+"p50": 0.0,
+"p75": 1.5,
+"p90": 3.0
+},
+"confidence": "medium",
+"source_refs": [
+"SRC_CLEVELAND_TRACKMAN_GUIDE",
+"SRC_FORESIGHT_BALL_SPEED",
+"SRC_TRACKMAN_SPIN_AXIS",
+"SRC_TRACKMAN_LAUNCH_DIRECTION"
+]
+},
+"mid_6_15": {
+"ball_speed": {
+"p10": 55.0,
+"p25": 57.2,
+"p50": 59.5,
+"p75": 61.7,
+"p90": 63.9
+},
+"vertical_launch_angle": {
+"p10": 12.0,
+"p25": 13.0,
+"p50": 14.5,
+"p75": 16.0,
+"p90": 17.0
+},
+"horizontal_launch_angle": {
+"p10": -3.0,
+"p25": -1.5,
+"p50": 0.0,
+"p75": 1.5,
+"p90": 3.0
+},
+"total_spin": {
+"p10": 2200,
+"p25": 2500,
+"p50": 2800,
+"p75": 3100,
+"p90": 3400
+},
+"spin_axis": {
+"p10": -5.0,
+"p25": -2.0,
+"p50": 0.0,
+"p75": 2.0,
+"p90": 5.0
+},
+"confidence": "medium",
+"source_refs": [
+"SRC_CLEVELAND_TRACKMAN_GUIDE",
+"SRC_FORESIGHT_BALL_SPEED",
+"SRC_TRACKMAN_SPIN_AXIS",
+"SRC_TRACKMAN_LAUNCH_DIRECTION"
+]
+},
+"high_16_30": {
+"ball_speed": {
+"p10": 45.2,
+"p25": 47.4,
+"p50": 49.6,
+"p75": 51.9,
+"p90": 54.1
+},
+"vertical_launch_angle": {
+"p10": 13.0,
+"p25": 14.0,
+"p50": 15.0,
+"p75": 17.0,
+"p90": 18.0
+},
+"horizontal_launch_angle": {
+"p10": -4.0,
+"p25": -2.0,
+"p50": 0.0,
+"p75": 2.0,
+"p90": 4.0
+},
+"total_spin": {
+"p10": 2500,
+"p25": 2800,
+"p50": 3000,
+"p75": 3300,
+"p90": 3700
+},
+"spin_axis": {
+"p10": -7.0,
+"p25": -3.5,
+"p50": 0.0,
+"p75": 3.5,
+"p90": 7.0
+},
+"confidence": "medium",
+"source_refs": [
+"SRC_CLEVELAND_TRACKMAN_GUIDE",
+"SRC_FORESIGHT_BALL_SPEED",
+"SRC_TRACKMAN_SPIN_AXIS",
+"SRC_TRACKMAN_LAUNCH_DIRECTION"
+]
+}
+}
+}
+},
+"sign_conventions": {
+"horizontal_launch_angle": {
+"positive_direction": "right_of_target_for_RH",
+"lh_mapping": "invert_sign",
+"notes": "According to Trackman, positive launch direction means the ball starts right of the target for a right‑handed player; a negative value means left\u3010804543740139738\u2020L390-L396\u3011. Zero launch direction indicates the ball started directly at the target."
+},
+"spin_axis": {
+"positive_direction": "right_curving_for_RH",
+"lh_mapping": "invert_sign",
+"notes": "Trackman defines spin axis as the tilt of the ball’s rotation; negative values curve left, positive values curve right, and values within ±2° produce a straight shot\u3010804543740139738\u2020L619-L625\u3011."
+}
+},
+"normalization": {
+"ball_speed_conversions": {
+"mph_to_mps": 0.44704,
+"kph_to_mps": 0.2777777778
+},
+"notes": "Values in mph or kph were converted to m/s using the factors above. Spin rates are left in RPM. Distances were not used."
+},
+"tip_rules": [
+{
+"id": "TIP_WOODS_HIGH_AXIS_SLICE",
+"club_category": "woods",
+"depends_on": [
+"spin_axis",
+"horizontal_launch_angle"
+],
+"pattern": {
+"spin_axis": {
+"abs_gt": 8.0
+}
+},
+"diagnostics": {
+"rh_player": [
+"Ball is curving too much to the right (slice pattern).",
+"Most common contributor is a large face-to-path mismatch, but we are inferring that only from spin axis."
+],
+"lh_player": [
+"Ball is curving too much to the left (slice pattern).",
+"Most common contributor is a large face-to-path mismatch, but we are inferring that only from spin axis."
+]
+},
+"coaching_cues": [
+"Prioritize reducing curvature first, then add speed.",
+"Try a grip check and alignment check, a weak grip or open alignment can amplify curvature.",
+"Experiment with a slightly more neutral ball position if your miss is consistent curvature."
+],
+"priority": 80,
+"confidence": "medium",
+"source_refs": [
+"SRC_TRACKMAN_SPIN_AXIS"
+]
+},
+{
+"id": "TIP_WOODS_LOW_LAUNCH_HIGH_SPIN",
+"club_category": "woods",
+"depends_on": [
+"vertical_launch_angle",
+"total_spin",
+"ball_speed"
+],
+"pattern": {
+"vertical_launch_angle": {
+"lt_p25": true
+},
+"total_spin": {
+"gt_p75": true
+}
+},
+"diagnostics": {
+"rh_player": [
+"Launch is low while spin is high for this club category.",
+"This usually costs distance and produces a ballooning flight."
+],
+"lh_player": [
+"Launch is low while spin is high for this club category.",
+"This usually costs distance and produces a ballooning flight."
+]
+},
+"coaching_cues": [
+"Try moving the ball slightly forward and teeing it a touch higher to increase launch.",
+"Focus on a smoother strike that feels more ‘up through’ impact without forcing it.",
+"If you can, test a different tee height and record which combination reduces spin while raising launch."
+],
+"priority": 75,
+"confidence": "medium",
+"source_refs": [
+"SRC_CLEVELAND_TRACKMAN_GUIDE"
+]
+},
+{
+"id": "TIP_IRON_LAUNCH_TOO_LOW",
+"club_category": "mid_irons",
+"depends_on": [
+"vertical_launch_angle",
+"total_spin",
+"ball_speed"
+],
+"pattern": {
+"vertical_launch_angle": {
+"lt_p25": true
+},
+"total_spin": {
+"lt_p50": true
+}
+},
+"diagnostics": {
+"rh_player": [
+"Launch is low and spin is not compensating, typical of a low-flight iron that may not hold greens."
+],
+"lh_player": [
+"Launch is low and spin is not compensating, typical of a low-flight iron that may not hold greens."
+]
+},
+"coaching_cues": [
+"Try a slightly more centered ball position and feel like you ‘finish higher’ through impact.",
+"Aim for contact slightly more centered on the face, thin strikes often show up as low launch and inconsistent spin.",
+"Do a quick check that you’re not de-lofting excessively at impact, your cue can be ‘brush then extend’."
+],
+"priority": 70,
+"confidence": "medium",
+"source_refs": [
+"SRC_CLEVELAND_TRACKMAN_GUIDE"
+]
+}
+],
+"sources": [
+{
+"id": "SRC_TRACKMAN_TOUR_2024",
+"title": "New PGA & LPGA Tour Averages",
+"publisher": "Trackman",
+"url": "https://www.trackman.com/blog/golf/introducing-updated-tour-averages
+",
+"date_accessed": "2026-01-09",
+"notes": "Provides PGA and LPGA Tour averages for ball speed, launch angle and spin rate by club. Data used to derive professional benchmarks."
+},
+{
+"id": "SRC_PGA_AVERAGES_PDF",
+"title": "PGA Tour Averages (Interactive PDF)",
+"publisher": "Trackman / TeeItUp RVA",
+"url": "https://teeituprva.com/wp-content/uploads/2019/03/PGA-AVERAGES-INTERACTIVE.pdf
+",
+"date_accessed": "2026-01-09",
+"notes": "PDF of Trackman tour averages in meters and yards. Provides ball speed, launch angle and spin rate for various clubs."
+},
+{
+"id": "SRC_TRACKMAN_SPIN_AXIS",
+"title": "Spin Axis – The Ultimate Guide to Understanding Trackman",
+"publisher": "Trackman",
+"url": "https://www.trackman.com/blog/golf/the-ultimate-guide-to-understanding-trackman#spin-axis
+",
+"date_accessed": "2026-01-09",
+"notes": "Defines spin axis; positive values curve right, negative left, and values within ±2° are considered straight."
+},
+{
+"id": "SRC_TRACKMAN_LAUNCH_DIRECTION",
+"title": "Launch Direction – The Ultimate Guide to Understanding Trackman",
+"publisher": "Trackman",
+"url": "https://www.trackman.com/blog/golf/the-ultimate-guide-to-understanding-trackman#launch-direction
+",
+"date_accessed": "2026-01-09",
+"notes": "Explains that positive launch direction means the ball starts right of the target, negative means left, and zero launch direction means the ball started on the target."
+},
+{
+"id": "SRC_CLEVELAND_TRACKMAN_GUIDE",
+"title": "Understanding TrackMan Golf Simulator Data: A Beginner’s Guide to Your Numbers",
+"publisher": "The Clubhouse Cleveland",
+"url": "https://theclubhousecle.com/understanding-trackman-golf-simulator-data/
+",
+"date_accessed": "2026-01-09",
+"notes": "Provides amateur benchmarks for driver (95–110 mph swing) including ball speed 140–165 mph, launch angle 9–15°, spin 2,100–2,800 RPM; 7‑iron benchmarks with ball speed 115–130 mph, launch angle 15–20°, spin 6,000–7,500 RPM; and wedge launch angles 20–28° with spin 8,000–10,500 RPM."
+},
+{
+"id": "SRC_FORESIGHT_BALL_SPEED",
+"title": "What Is Ball Speed in Golf: Breaking Down the Data",
+"publisher": "Foresight Sports",
+"url": "https://www.foresightsports.com/blogs/golf-tips/what-ball-speed-golf-breaking-down-data
+",
+"date_accessed": "2026-01-09",
+"notes": "Lists average driver ball speeds for golfers: male 5‑handicap 147 mph, average male 133 mph, average female 111 mph, and PGA Tour ball speeds for driver (167 mph), 3‑iron (142 mph), 6‑iron (127 mph), pitching wedge (102 mph). Used to estimate amateur ball speed percentiles."
+}
+],
+"notes": {
+"limitations": [
+"Benchmarks rely on ball flight metrics only; club delivery parameters like attack angle or club path are not considered.",
+"Percentile values for horizontal launch angle and spin axis are inferred from professional guidelines; real distributions are not publicly available.",
+"Amateur benchmarks approximate typical ranges based on swing speed categories; individual performance may vary."
+]
+}
+}
