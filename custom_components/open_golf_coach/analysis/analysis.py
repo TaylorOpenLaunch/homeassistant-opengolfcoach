@@ -7,7 +7,7 @@ from typing import Any
 from .benchmarks import compare_shot_to_cohorts, infer_club_category
 from .clubhead_data import estimate_club_data
 from .coaching import get_coaching_for_shape
-from .shot_classifier import classify_shot
+from .shot_classifier import classify_shot, normalize_for_handedness
 from .trajectory import simulate_trajectory
 from .trajectory_analysis import analyze_trajectory
 from .utils import utc_now_iso
@@ -42,13 +42,11 @@ def analyze_shot(measured_shot: dict[str, Any], handedness: str = "RH") -> dict[
         for src_key, key in MEASURED_KEYS.items()
     }
 
-    adjusted_hla = measured.get("horizontal_launch_angle_deg")
-    adjusted_spin_axis = measured.get("spin_axis_deg")
-    if handedness == "LH":
-        if adjusted_hla is not None:
-            adjusted_hla = -adjusted_hla
-        if adjusted_spin_axis is not None:
-            adjusted_spin_axis = -adjusted_spin_axis
+    adjusted_hla, adjusted_spin_axis = normalize_for_handedness(
+        measured.get("horizontal_launch_angle_deg"),
+        measured.get("spin_axis_deg"),
+        handedness,
+    )
 
     club_category = infer_club_category(measured_shot)
 
@@ -110,7 +108,12 @@ def analyze_shot(measured_shot: dict[str, Any], handedness: str = "RH") -> dict[
     benchmarks = compare_shot_to_cohorts(measured_shot, club_category)
 
     derived = {
-        "trajectory": trajectory_summary,
+        "estimated_trajectory": trajectory_summary,
+        "trajectory_is_estimated": True,
+        "trajectory_model_note": (
+            "Trajectory values are computed from a simplified physics model and "
+            "may differ from measured outcomes."
+        ),
         "trajectory_notes": trajectory_notes,
     }
 

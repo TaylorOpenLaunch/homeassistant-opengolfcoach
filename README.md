@@ -39,6 +39,8 @@ This repository also includes the Open Golf Coach integration, which derives add
 - **Measured**: Raw NOVA launch monitor metrics (ball speed, launch angles, spin).
 - **Derived**: Trajectory estimates, shot shape classification, benchmark comparisons, and coaching cues.
 
+Trajectory outputs are provided under an `estimated_trajectory` attribute block with `trajectory_is_estimated` set to `true`, indicating these values come from a simplified physics model and may differ from measured outcomes.
+
 ### Open Golf Coach sensors
 
 **Rich analysis sensor**
