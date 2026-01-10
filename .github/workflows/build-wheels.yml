@@ -30,19 +30,6 @@ jobs:
             target: aarch64
             platform: linux
 
-          # macOS
-          - os: macos-latest
-            target: x86_64
-            platform: darwin
-          - os: macos-latest
-            target: aarch64
-            platform: darwin
-
-          # Windows
-          - os: windows-latest
-            target: x86_64
-            platform: win32
-
     steps:
       - uses: actions/checkout@v4
 
