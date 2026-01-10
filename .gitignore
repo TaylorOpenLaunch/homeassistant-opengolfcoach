@@ -40,3 +40,12 @@ build/
 
 # Local development
 .local/
+
+# Rust
+rust_extension/target/
+rust_extension/Cargo.lock
+**/*.rs.bk
+*.so
+
+# Maturin wheels
+wheels/
