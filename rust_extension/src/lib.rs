@@ -56,7 +56,7 @@ use pyo3::exceptions::PyValueError;
 fn calculate_derived_values(json_input: &str) -> PyResult<String> {
     // Call the underlying Rust core function
     opengolfcoach::calculate_derived_values(json_input)
-        .map_err(|e| PyValueError::new_err(format!("Calculation failed: {}", e)))
+        .map_err(|e| PyValueError::new_err(format!("Calculation failed: {:?}", e)))
 }
 
 /// OpenGolfCoach Rust Extension Module
@@ -74,7 +74,7 @@ fn calculate_derived_values(json_input: &str) -> PyResult<String> {
 /// JSON input and returns JSON output for maximum flexibility and compatibility
 /// with the Home Assistant integration layer.
 #[pymodule]
-fn opengolfcoach_rust(_py: Python, m: &PyModule) -> PyResult<()> {
+fn opengolfcoach_rust(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(calculate_derived_values, m)?)?;
     Ok(())
 }
