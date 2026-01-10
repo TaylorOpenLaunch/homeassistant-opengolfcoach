@@ -38,7 +38,7 @@ jobs:
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
         with:
-          targets: ${{ matrix.target }}-${{ matrix.platform == 'darwin' && 'apple-darwin' || matrix.platform == 'win32' && 'pc-windows-msvc' || 'unknown-linux-gnu' }}
+          targets: x86_64-unknown-linux-gnu,x86_64-unknown-linux-musl,aarch64-unknown-linux-musl
 
       - name: Install maturin and ziglang
         run: |
