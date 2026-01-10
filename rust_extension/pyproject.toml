@@ -33,7 +33,6 @@ Repository = "https://github.com/TaylorOpenLaunch/homeassistant-opengolfcoach"
 Issues = "https://github.com/TaylorOpenLaunch/homeassistant-opengolfcoach/issues"
 
 [tool.maturin]
-python-source = "python"
 module-name = "opengolfcoach_rust"
 # Build for multiple platforms
 features = ["pyo3/extension-module"]
