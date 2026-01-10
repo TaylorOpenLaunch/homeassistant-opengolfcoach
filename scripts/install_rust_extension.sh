@@ -69,12 +69,30 @@ detect_platform() {
 
     case "$os" in
         linux)
+            # Check if running on Home Assistant OS (Alpine Linux)
+            local is_haos=false
+            if [ -f "/etc/os-release" ]; then
+                if grep -qi "alpine" /etc/os-release 2>/dev/null || [ -f "/usr/src/homeassistant/bin/python" ]; then
+                    is_haos=true
+                fi
+            fi
+
             case "$arch" in
                 x86_64)
-                    platform_tag="manylinux_2_28_x86_64"
+                    if [ "$is_haos" = true ]; then
+                        platform_tag="musllinux_1_2_x86_64"
+                        print_info "Detected Home Assistant OS (Alpine Linux)"
+                    else
+                        platform_tag="manylinux_2_28_x86_64"
+                    fi
                     ;;
                 aarch64|arm64)
-                    platform_tag="manylinux_2_28_aarch64"
+                    if [ "$is_haos" = true ]; then
+                        platform_tag="musllinux_1_2_aarch64"
+                        print_info "Detected Home Assistant OS (Alpine Linux)"
+                    else
+                        platform_tag="manylinux_2_28_aarch64"
+                    fi
                     ;;
                 *)
                     print_error "Unsupported Linux architecture: $arch"
@@ -110,29 +128,37 @@ detect_platform() {
 
 # Detect Python version
 detect_python_version() {
-    local python_cmd python_version
+    local python_cmd python_version is_ha_python
 
     # Try Home Assistant Python path first
     if [ -f "/usr/src/homeassistant/bin/python" ]; then
         python_cmd="/usr/src/homeassistant/bin/python"
-        print_info "Found Home Assistant Python: $python_cmd"
+        is_ha_python=true
     elif command -v python3 &> /dev/null; then
         python_cmd="python3"
+        is_ha_python=false
     elif command -v python &> /dev/null; then
         python_cmd="python"
+        is_ha_python=false
     else
         print_error "Python not found. Please install Python 3.9 or later."
         exit 1
     fi
 
-    # Get Python version (e.g., "311" for Python 3.11)
-    python_version=$($python_cmd -c "import sys; print(f'{sys.version_info.major}{sys.version_info.minor}')")
+    # Get Python version (e.g., "311" for Python 3.11) - suppress stderr
+    python_version=$($python_cmd -c "import sys; print(f'{sys.version_info.major}{sys.version_info.minor}')" 2>/dev/null)
 
-    print_info "Detected Python version: $python_version (from $python_cmd)"
+    # Print AFTER capturing the version (to avoid polluting the output)
+    if [ "$is_ha_python" = true ]; then
+        print_info "Found Home Assistant Python: $python_cmd"
+    else
+        print_info "Using system Python: $python_cmd"
+    fi
+    print_info "Detected Python version: cp${python_version}"
 
     # Verify minimum version (Python 3.9 = version 39)
     if [ "$python_version" -lt 39 ]; then
-        print_error "Python 3.9 or later is required. Found: $python_version"
+        print_error "Python 3.9 or later is required. Found: Python 3.${python_version#3}"
         exit 1
     fi
 

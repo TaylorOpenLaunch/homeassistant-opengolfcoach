@@ -115,11 +115,14 @@ The integration requires the `opengolfcoach-rust` Python extension. You have two
 
 Download the appropriate wheel for your platform from the [GitHub Releases](https://github.com/TaylorOpenLaunch/homeassistant-opengolfcoach/releases) page:
 
-- **Linux x86_64**: `opengolfcoach_rust-*-cp311-cp311-manylinux_2_28_x86_64.whl`
-- **Linux aarch64** (Raspberry Pi): `opengolfcoach_rust-*-cp311-cp311-manylinux_2_28_aarch64.whl`
+- **Home Assistant OS x86_64**: `opengolfcoach_rust-*-cp311-cp311-musllinux_1_2_x86_64.whl`
+- **Home Assistant OS aarch64** (Raspberry Pi): `opengolfcoach_rust-*-cp311-cp311-musllinux_1_2_aarch64.whl`
+- **Linux x86_64** (development): `opengolfcoach_rust-*-cp311-cp311-manylinux_2_28_x86_64.whl`
 - **macOS Intel**: `opengolfcoach_rust-*-cp311-cp311-macosx_*_x86_64.whl`
 - **macOS Apple Silicon**: `opengolfcoach_rust-*-cp311-cp311-macosx_*_arm64.whl`
 - **Windows**: `opengolfcoach_rust-*-cp311-cp311-win_amd64.whl`
+
+**Note for Home Assistant OS users:** Home Assistant OS runs Alpine Linux and requires `musllinux` wheels (not `manylinux`). The automated installation script will detect this automatically.
 
 Install using Home Assistant's Python environment:
 
