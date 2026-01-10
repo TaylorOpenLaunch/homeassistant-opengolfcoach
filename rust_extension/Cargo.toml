@@ -1,0 +1,25 @@
+[package]
+name = "opengolfcoach-ha"
+version = "0.2.0"
+edition = "2021"
+authors = ["Open Launch Labs"]
+description = "Python bindings for OpenGolfCoach Rust core - Home Assistant integration"
+license = "MIT"
+
+[lib]
+name = "opengolfcoach_rust"
+crate-type = ["cdylib"]
+
+[dependencies]
+pyo3 = { version = "0.22", features = ["extension-module"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# OpenGolfCoach core - using git dependency until published to crates.io
+# This pulls the actual Rust implementation from the upstream repository
+opengolfcoach = { git = "https://github.com/OpenLaunchLabs/open-golf-coach", package = "opengolfcoach" }
+
+[profile.release]
+lto = true
+codegen-units = 1
+opt-level = 3

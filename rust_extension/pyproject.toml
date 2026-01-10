@@ -1,0 +1,39 @@
+[build-system]
+requires = ["maturin>=1.0,<2.0"]
+build-backend = "maturin"
+
+[project]
+name = "opengolfcoach-rust"
+version = "0.2.0"
+description = "Rust-powered golf shot analysis for Home Assistant OpenGolfCoach integration"
+authors = [
+    {name = "Open Launch Labs", email = "info@openlaunchlabs.com"}
+]
+requires-python = ">=3.9"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Rust",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Home Automation",
+    "Topic :: Scientific/Engineering :: Physics",
+]
+keywords = ["golf", "analytics", "trajectory", "homeassistant"]
+license = {text = "MIT"}
+readme = "README.md"
+
+[project.urls]
+Homepage = "https://github.com/TaylorOpenLaunch/homeassistant-opengolfcoach"
+Repository = "https://github.com/TaylorOpenLaunch/homeassistant-opengolfcoach"
+Issues = "https://github.com/TaylorOpenLaunch/homeassistant-opengolfcoach/issues"
+
+[tool.maturin]
+python-source = "python"
+module-name = "opengolfcoach_rust"
+# Build for multiple platforms
+features = ["pyo3/extension-module"]

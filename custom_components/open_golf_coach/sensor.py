@@ -11,8 +11,8 @@ from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .analysis import analyze_shot
-from .benchmarks import get_cohort_metric_window
+from .rust_adapter import analyze_shot
+from .analysis.benchmarks import get_cohort_metric_window
 from .const import COHORT_PGA, DOMAIN, NAME
 
 _LOGGER = logging.getLogger(__name__)

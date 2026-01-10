@@ -1,0 +1,55 @@
+[build-system]
+requires = ["setuptools>=65.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "homeassistant-opengolfcoach"
+version = "0.2.0"
+description = "Home Assistant integration for OpenGolfCoach powered by Rust"
+authors = [
+    {name = "Open Launch Labs", email = "info@openlaunchlabs.com"}
+]
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Home Automation",
+]
+keywords = ["homeassistant", "golf", "analytics", "opengolfcoach", "nova"]
+
+dependencies = [
+    # Home Assistant will provide these
+    # "homeassistant>=2023.1.0",
+]
+
+[project.optional-dependencies]
+rust = [
+    "opengolfcoach-rust>=0.2.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/TaylorOpenLaunch/homeassistant-opengolfcoach"
+Repository = "https://github.com/TaylorOpenLaunch/homeassistant-opengolfcoach"
+Issues = "https://github.com/TaylorOpenLaunch/homeassistant-opengolfcoach/issues"
+Documentation = "https://github.com/TaylorOpenLaunch/homeassistant-opengolfcoach#readme"
+
+[tool.setuptools]
+packages = ["custom_components.open_golf_coach"]
+package-dir = {"" = "."}
+include-package-data = true
+
+[tool.setuptools.package-data]
+"custom_components.open_golf_coach" = [
+    "*.json",
+    "data/*.json",
+    "translations/*.json",
+]
