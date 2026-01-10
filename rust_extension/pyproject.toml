@@ -4,7 +4,7 @@ build-backend = "maturin"
 
 [project]
 name = "opengolfcoach-rust"
-version = "0.2.0"
+version = "0.2.1"
 description = "Rust-powered golf shot analysis for Home Assistant OpenGolfCoach integration"
 authors = [
     {name = "Open Launch Labs", email = "info@openlaunchlabs.com"}

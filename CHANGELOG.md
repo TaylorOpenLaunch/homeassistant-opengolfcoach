@@ -5,6 +5,35 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.1] - 2026-01-10
+
+### Added
+- **musllinux Wheel Builds**: Added support for Home Assistant OS (Alpine Linux)
+  - Build musllinux wheels for x86_64 and aarch64 using zig cross-compilation
+  - Auto-detect Home Assistant OS and download correct wheel type
+  - Support for Raspberry Pi with aarch64 musllinux wheels
+- **Automated Installation Script** (`scripts/install_rust_extension.sh`):
+  - One-command installation for Rust extension
+  - Auto-detects platform (Linux manylinux/musllinux, macOS, Windows)
+  - Auto-detects Python version and Home Assistant environment
+  - Downloads appropriate wheel from GitHub Releases
+  - Verifies installation with import test
+
+### Fixed
+- **Script Regex Bug**: Fixed Python version detection causing grep errors
+  - Moved print statements after variable capture to avoid stdout pollution
+  - Added stderr suppression during version detection
+  - Better error messages for Python version mismatches
+- **Home Assistant OS Compatibility**: Resolved incompatibility with Alpine Linux
+  - Previous manylinux wheels (glibc) didn't work on HA OS (musl libc)
+  - Now builds and distributes musllinux wheels specifically for HA OS
+  - Script automatically selects correct wheel based on platform detection
+
+### Changed
+- Updated CI/CD workflow to use ziglang for cross-compilation
+- Enhanced README with musllinux wheel information and platform-specific notes
+- Improved MIGRATION.md with automated installation script references
+
 ## [0.2.0] - 2026-01-10
 
 ### Added

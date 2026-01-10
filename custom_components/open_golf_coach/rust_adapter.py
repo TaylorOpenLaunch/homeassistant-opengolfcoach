@@ -28,7 +28,7 @@ from .analysis.benchmarks import compare_shot_to_cohorts, infer_club_category
 from .analysis.coaching import get_coaching_for_shape
 from .analysis.utils import utc_now_iso
 
-ANALYSIS_VERSION = "0.2.0-rust"
+ANALYSIS_VERSION = "0.2.1-rust"
 
 
 def _timestamp_from_shot(measured_shot: dict[str, Any]) -> str:
