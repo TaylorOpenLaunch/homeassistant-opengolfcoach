@@ -81,7 +81,33 @@ These are derived from analysis output and include attributes:
 
 ## Installation via HACS (recommended)
 
-### Step 1: Install the Rust Extension
+### Quick Install (Automated Script)
+
+For the easiest installation, use our automated script that detects your platform and installs the correct Rust extension:
+
+```bash
+# SSH into your Home Assistant instance (or use Terminal add-on)
+curl -sSL https://raw.githubusercontent.com/TaylorOpenLaunch/homeassistant-opengolfcoach/main/scripts/install_rust_extension.sh | bash
+```
+
+Or download and run manually:
+
+```bash
+wget https://raw.githubusercontent.com/TaylorOpenLaunch/homeassistant-opengolfcoach/main/scripts/install_rust_extension.sh
+bash install_rust_extension.sh
+```
+
+The script will:
+- Auto-detect your platform (Linux x86_64/aarch64, macOS, Windows)
+- Auto-detect your Python version
+- Download the correct wheel from GitHub Releases
+- Install and verify the extension
+
+After the script completes, skip to [Step 2: Install via HACS](#step-2-install-the-integration-via-hacs).
+
+### Step 1: Install the Rust Extension (Manual)
+
+If you prefer manual installation or the script doesn't work for your setup:
 
 The integration requires the `opengolfcoach-rust` Python extension. You have two options:
 

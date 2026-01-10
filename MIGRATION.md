@@ -90,6 +90,16 @@ The only difference is `metadata.version` changes from `"0.1.0"` to `"0.2.0-rust
 ### For HACS Users
 
 1. **Install the Rust extension** (one-time):
+
+   **Option A: Automated Script (Recommended)**
+   ```bash
+   # SSH into your Home Assistant instance
+   curl -sSL https://raw.githubusercontent.com/TaylorOpenLaunch/homeassistant-opengolfcoach/main/scripts/install_rust_extension.sh | bash
+   ```
+
+   The script will automatically detect your platform and Python version, download the correct wheel, and install it.
+
+   **Option B: Manual Installation**
    ```bash
    # SSH into your Home Assistant instance
    source /usr/src/homeassistant/bin/activate
